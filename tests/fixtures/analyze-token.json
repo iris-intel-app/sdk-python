@@ -1,0 +1,40 @@
+{
+  "address": "Token1111111111111111111111111111111111pump",
+  "chain": "solana",
+  "native_symbol": "SOL",
+  "identity": { "type": "TOKEN", "confidence": 1 },
+  "risk": { "level": "HIGH", "score": 82, "confidence": 0.8 },
+  "summary": ["Token"],
+  "labels": [], "behaviors": [],
+  "behavior": { "wallet_age_days": 1, "transaction_count": 1000, "transaction_count_exact": false, "transaction_tier": null, "transactions_analyzed": 1000, "unique_counterparties": 200, "active": true },
+  "activity": { "transfers": 0, "swaps": 1000, "program_calls": 0 },
+  "evidence": [], "flagged_counterparties": [], "known_counterparties": [],
+  "flows": { "inbound": { "wallets": 0, "transactions": 0, "sol": 0, "usd": 0, "other_tokens": 0, "top": [] }, "outbound": { "wallets": 0, "transactions": 0, "sol": 0, "usd": 0, "other_tokens": 0, "top": [] } },
+  "connections": [], "swap_venues": [], "balance": null, "balance_history": [],
+  "token": {
+    "mint": "Token1111111111111111111111111111111111pump", "name": "Token", "symbol": "TKN", "image": null,
+    "program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA", "decimals": 6, "supply": 1000000000,
+    "mint_authority": null, "freeze_authority": null, "pump_fun": true, "graduated": false,
+    "launch": { "creator": "DevWa11et111111111111111111111111111111111", "created_at": "2026-10-01T00:00:00Z", "creator_bought": 50000000, "creator_sold": 20000000, "bundles": 1, "snipers": 3 },
+    "bundle": {
+      "wallets": 12, "spent_sol": 30, "bought_share": 0.4, "sold_share": 0.1, "held_share": 0.3125, "launch_share": 0.4,
+      "blocks": 1, "first_buy_at": null, "after_launch_secs": 0, "clusters": 1, "signals": { "same_funder": 12 },
+      "funding": null, "proxima": null, "blockx": null, "kit": 0, "summary": "12 wallets bought 40% in the launch block"
+    },
+    "launch_tool": {
+      "tool": "Proxima", "checked": ["Proxima", "BlockX"], "creator": "DevWa11et111111111111111111111111111111111",
+      "made_with": true, "proxima": true, "funding": null, "tipping": null, "sell_fees": 1, "claim_cuts": 0, "receipts": 0,
+      "fee_wallets": [], "blockx": null, "lines": [], "summary": "Made with Proxima: a 5% sell fee",
+      "verdict": "proxima", "funded_and_tipped": true, "tree": null, "launch_kit": null, "checked_at": 1793360989, "creator_latest": null
+    },
+    "trades_analyzed": 1000, "traders": 200, "buys": 800, "sells": 200, "volume_sol": 500, "from": null, "to": null,
+    "groups": [
+      { "key": "creator", "name": "Creator", "singular": "creator", "description": "Launched the token", "wallets": 1, "volume_sol": 10, "bought_share": 0.05, "sold_share": 0.02, "held_share": 0.03, "pnl_sol": 2, "members": [] }
+    ],
+    "flags": [ { "severity": "high", "title": "A bundle holds 31% of the supply", "detail": "…" } ],
+    "creator_funder": null, "creator_funding_layout": null, "holders": [], "activity": [], "bucket_seconds": 60,
+    "distribution": { "transfers": 0, "tokens": 0, "share": 0, "recipients": 0, "creator_wallets": 1, "creator_share": 0, "distributors": [], "handouts": [], "holders": [] },
+    "track_record": null, "price": [], "price_bucket_seconds": 60, "price_gap": null, "ticks": [], "marks": []
+  },
+  "meta": { "analyzed_at": "2026-10-30T00:00:00Z", "data_completeness": 0.9, "scope": "live", "warning": null, "depth": 1000, "free": false }
+}

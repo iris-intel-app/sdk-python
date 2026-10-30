@@ -1,0 +1,22 @@
+{
+  "wallet": "2zy2NEyvzXfPkdFesbisZViTyz6oCWERFEvSD9PfoRg1",
+  "mint": null,
+  "from_mint": null,
+  "tool": "proxima",
+  "tool_name": "Proxima",
+  "tool_site": "",
+  "checked": ["Proxima", "BlockX"],
+  "verdict": "none",
+  "verdict_name": "No launch kit found",
+  "confidence": 0.0,
+  "evidence": [],
+  "tokens_launched": [],
+  "sells": { "seen": 0, "through_tool": 0, "sol_received": 0, "fees_sol": 0, "unconfirmed": 0, "fees": [] },
+  "fee_wallets": [],
+  "claims": [],
+  "funding": null,
+  "window": { "transactions": 21, "oldest": "2026-09-01T00:00:00Z", "newest": "2026-10-01T00:00:00Z", "whole_history": true },
+  "requests": 12,
+  "complete": true,
+  "notes": []
+}

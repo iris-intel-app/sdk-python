@@ -1,0 +1,29 @@
+{
+  "wallet": "DevWa11et111111111111111111111111111111111",
+  "mint": "Token1111111111111111111111111111111111pump",
+  "from_mint": "Token1111111111111111111111111111111111pump",
+  "tool": "proxima",
+  "tool_name": "Proxima",
+  "tool_site": "",
+  "checked": ["Proxima", "BlockX"],
+  "verdict": "tool",
+  "verdict_name": "Proxima",
+  "confidence": 0.99,
+  "evidence": [
+    { "kind": "sell_fee", "strength": "strong", "text": "1 fee of exactly 5% of a sell (0.0657 SOL on 1.3146 SOL received)", "signatures": ["s1"] },
+    { "kind": "tips", "strength": "weak", "text": "Tips to several landing services at once", "signatures": [] }
+  ],
+  "tokens_launched": [
+    { "mint": "Token1111111111111111111111111111111111pump", "name": "Token", "symbol": "TKN", "time": "2026-10-01T00:00:00Z", "signature": "s0", "relays": ["Astralane", "Jito"], "tip_signatures": [] }
+  ],
+  "sells": { "seen": 1, "through_tool": 1, "sol_received": 1.3146, "fees_sol": 0.0657, "unconfirmed": 0, "fees": [] },
+  "fee_wallets": [
+    { "address": "Fee1111111111111111111111111111111111111111", "mints": ["Token1111111111111111111111111111111111pump"], "paid_sol": 0.0775, "sell_fees": 1, "claim_cuts": 1, "trade_fees": 0, "first_paid": null, "balance_sol": 0.0775, "transactions": 2, "more_transactions": false, "swept": false, "sent": [] }
+  ],
+  "claims": [],
+  "funding": null,
+  "window": { "transactions": 21, "oldest": null, "newest": null, "whole_history": true },
+  "requests": 91,
+  "complete": true,
+  "notes": []
+}

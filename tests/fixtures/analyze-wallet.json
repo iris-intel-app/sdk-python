@@ -1,0 +1,15 @@
+{
+  "address": "sy88tvipKfaCTuVVeU2PczPa88hqgPfKnYQyCHboHP8",
+  "chain": "solana",
+  "native_symbol": "SOL",
+  "identity": { "type": "MEV_ARBITRAGE", "confidence": 0.95 },
+  "risk": { "level": "LOW", "score": 10, "confidence": 0.3 },
+  "summary": ["MEV arbitrage bot"],
+  "labels": [], "behaviors": [],
+  "behavior": { "wallet_age_days": 212, "transaction_count": 4100000, "transaction_count_exact": false, "transaction_tier": null, "transactions_analyzed": 1000, "unique_counterparties": 38, "active": true },
+  "activity": { "transfers": 41, "swaps": 902, "program_calls": 57 },
+  "evidence": [], "flagged_counterparties": [], "known_counterparties": [],
+  "flows": { "inbound": { "wallets": 0, "transactions": 0, "sol": 0, "usd": 0, "other_tokens": 0, "top": [] }, "outbound": { "wallets": 0, "transactions": 0, "sol": 0, "usd": 0, "other_tokens": 0, "top": [] } },
+  "connections": [], "swap_venues": [], "balance": null, "balance_history": [],
+  "meta": { "analyzed_at": "2026-09-29T10:12:03Z", "data_completeness": 0.9, "scope": "live", "warning": null, "depth": 1000, "free": false }
+}

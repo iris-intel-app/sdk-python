@@ -1,0 +1,39 @@
+{
+  "mint": "Bo9jh3wsmcC2AjakLWzNmKJ3SgtZmXEcSaW7L2FAvUsU",
+  "chain": "solana",
+  "name": "LIBRA",
+  "symbol": "LIBRA",
+  "supply": 1000000000,
+  "launched_at": "2025-02-14T21:38:02Z",
+  "dev": {
+    "address": "DefcyKc4yAjRsCLZjdxWuSUzVohXtLna9g22y3pBCm2z",
+    "label": null, "entity": null,
+    "funded_by": [{ "from": "5ndLnEYq", "to": "DefcyKc4", "signature": "sig", "time": null, "what": "first funding", "sol": 10.89, "tokens": 0, "usd": 0 }],
+    "funded_from": "a busy service wallet",
+    "via": null,
+    "fresh": false
+  },
+  "limit": 50,
+  "depth": 2,
+  "complete": true,
+  "insiders": [
+    {
+      "address": "Gj9esbWVNJyy55SDJzYudMAznewqmW3Xb6GpUakcCNwT", "label": null, "entity": null,
+      "link": "funded_by_dev", "link_name": "funded by the dev", "confidence": 0.9,
+      "path": [], "through": null, "also": [], "via": null,
+      "reasons": ["top holder", "got tokens at launch"], "fresh": false,
+      "first_buy_seconds": 0, "first_buy_at": null, "bundled": true,
+      "bought": 0, "spent_sol": 0, "spent_usd": 0, "received": 200000000, "holds": 0.2
+    },
+    {
+      "address": "Other111111111111111111111111111111111111111", "label": null, "entity": null,
+      "link": "same_funder", "link_name": "same funder as the dev", "confidence": 0.7,
+      "path": [], "through": "Funder", "also": [], "via": null,
+      "reasons": ["early buyer"], "fresh": true,
+      "first_buy_seconds": 46, "first_buy_at": null, "bundled": false,
+      "bought": 1000, "spent_sol": 1, "spent_usd": 0, "received": 0, "holds": 0.054
+    }
+  ],
+  "summary": { "insiders": 2, "held_share": 0.254, "bought_share": 0.7, "candidates": 50, "checked": 50, "by_link": { "funded by the dev": 1, "same funder as the dev": 1 } },
+  "notes": ["23 wallets were first funded by an exchange or another service: that links no one."]
+}

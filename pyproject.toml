@@ -1,0 +1,46 @@
+[build-system]
+requires = ["hatchling>=1.18"]
+build-backend = "hatchling.build"
+
+[project]
+name = "iriscan"
+version = "0.1.0"
+description = "Official Iris SDK: blockchain investigation from code. Analyze wallets and tokens, find insiders and launch kits, trace funds through mixers and exchanges."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Iris (iriscan.app)" }]
+requires-python = ">=3.9"
+dependencies = ["httpx>=0.24,<1"]
+keywords = ["iris", "iriscan", "solana", "ethereum", "blockchain", "investigation", "rug", "memecoin", "insiders", "proxima", "aml", "tracing"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Typing :: Typed",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7", "respx>=0.20"]
+
+[project.urls]
+Homepage = "https://iriscan.app"
+Documentation = "https://iriscan.app/developers"
+Pricing = "https://iriscan.app/pricing"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/iriscan"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src/iriscan", "tests", "examples", "README.md", "LICENSE", "pyproject.toml"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
