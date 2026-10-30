@@ -49,18 +49,18 @@ The free tier gives 10 API calls a day. Plans and credit packs: [iriscan.app/pri
 | `launch_tool(wallet_or_mint, mint=None)` | `POST /launch-tool` | Whether a wallet (or a mint's creator) used Proxima or BlockX, with fee wallets, claims and the funding tree | Free: 10 a minute, 20 a day on the free tier |
 | `follow(address, chain=None, asset=None, since=None, max_hops=None)` | `POST /follow` | The main stream of money out of a wallet, hop by hop, to an exchange, bridge, mixer or rest | 2 analyses, or 2 credits |
 | `trace(wallet, *, counterparty, signature, direction, time, sol, usd, window=None, chain=None, hops=None)` | `POST /trace` | The likely wallets on the other side of a mixer, exchange or swap service | 1 trace, or 3 credits |
-| `trace_transfer(wallet, tx, chain=None, counterparty=None, direction=None)` | `POST /tx`, then `POST /trace` | `trace` from just a wallet and a transaction: the transfer is read for you | As `trace` |
+| `trace_transfer(wallet, tx, chain=None, counterparty=None, direction=None)` | `POST /trace/transfer` | `trace` from just a wallet and a transaction: Iris reads the transaction and finds the transfer | As `trace` |
 | `tx(hash, chain=None)` | `POST /tx` | One transaction explained: transfers, parties, programs, bridge | Free: 60 a minute, 100 a day on the free tier |
 | `victims(drainer)` | `POST /victims` | Every wallet a drainer took funds from, and what each lost | 3 analyses, or 3 credits |
 | `kind(address, chain=None)` | `POST /kind` | `"token"` or `"other"` | Free, no key needed |
-| `chains(address)` | `POST /chains` | Which EVM chains a 0x address used, with its nonce and balance | Free: 20 a minute, 50 a day on the free tier |
+| `chains(address)` | `POST /chains` | Which EVM chains a 0x address used, with its nonce and balance, and `pick`: the most active one | Free: 20 a minute, 50 a day on the free tier |
 | `xchain_resolve(tx, chain=None)` | `POST /xchain/resolve` | The bridge transfers a transaction started or finished, both ends | Free: 30 a minute (shared with `xchain_wallet`) |
 | `xchain_wallet(address, chain=None)` | `POST /xchain/wallet` | A wallet's bridge transfers, sent and received | Free, as above |
 | `status()` | `GET /status` | The health of the API and its dependencies | Free, public |
 
 Every call made with a key also counts toward the key's call limit (10 a day on the free tier, a number per 10 minutes on a plan). A call that fails is never charged.
 
-Chains: `solana`, `ethereum`, `base`, `arbitrum`, `robinhood`, `bsc`, `dydx`, `noble`, `bitcoin`, `tron`. Leave `chain` out and Iris reads it from the address. Each route accepts the chains in its [docs](https://iriscan.app/developers). Times (`since`, `time`) take Unix seconds or a `datetime`.
+Chains: `solana`, `ethereum`, `base`, `arbitrum`, `robinhood`, `bsc`, `polygon`, `dydx`, `noble`, `bitcoin`, `tron`. Leave `chain` out and Iris reads it from the address. Each route accepts the chains in its [docs](https://iriscan.app/developers). Times (`since`, `time`) take Unix seconds or a `datetime`.
 
 ## The risk summary
 

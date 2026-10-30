@@ -12,7 +12,6 @@ from typing import Any, Dict, Mapping, Optional, Tuple, TypeVar, Union, cast
 import httpx
 
 from ._errors import IrisError
-from ._trace_plan import plan_trace
 from .types import (
     AnalyzeResult,
     ChainsResult,
@@ -106,6 +105,12 @@ class _Base:
         body["wallet"] = wallet
         body["time"] = _unix(body.get("time"))
         return self._post("/trace", body)
+
+    def _trace_transfer(
+        self, wallet: str, tx: str, chain: Optional[str], counterparty: Optional[str], direction: Optional[str]
+    ) -> _Request:
+        body = {"wallet": wallet, "signature": tx, "chain": chain, "counterparty": counterparty, "direction": direction}
+        return self._post("/trace/transfer", body)
 
     def _tx(self, hash: str, chain: Optional[str]) -> _Request:
         return self._post("/tx", {"hash": hash, "chain": chain})
@@ -253,14 +258,10 @@ class Iris(_Base):
         chain: Optional[str] = None,
         counterparty: Optional[str] = None,
         direction: Optional[str] = None,
-        window: Optional[int] = None,
-        hops: Optional[int] = None,
     ) -> TraceResult:
-        """``trace`` from a wallet and a transaction: the transfer is read with ``tx`` (free) first."""
-        summary = self.tx(tx, chain=chain)
-        me, fields = plan_trace(summary, wallet, counterparty=counterparty, direction=direction)
-        fields.update(window=window, hops=hops)
-        return cast(TraceResult, self._call(self._trace(me, fields)))
+        """``trace`` from a wallet and a transaction: Iris reads the transaction and finds the wallet's
+        transfer to or from a mixer, exchange or swap service (or ``counterparty``). Costs what ``trace`` costs."""
+        return cast(TraceResult, self._call(self._trace_transfer(wallet, tx, chain, counterparty, direction)))
 
     def tx(self, hash: str, chain: Optional[str] = None) -> TxResult:
         """One transaction explained: transfers, parties, programs, bridge. Free (with a key)."""
@@ -405,14 +406,9 @@ class AsyncIris(_Base):
         chain: Optional[str] = None,
         counterparty: Optional[str] = None,
         direction: Optional[str] = None,
-        window: Optional[int] = None,
-        hops: Optional[int] = None,
     ) -> TraceResult:
         """See ``Iris.trace_transfer``."""
-        summary = await self.tx(tx, chain=chain)
-        me, fields = plan_trace(summary, wallet, counterparty=counterparty, direction=direction)
-        fields.update(window=window, hops=hops)
-        return cast(TraceResult, await self._call(self._trace(me, fields)))
+        return cast(TraceResult, await self._call(self._trace_transfer(wallet, tx, chain, counterparty, direction)))
 
     async def tx(self, hash: str, chain: Optional[str] = None) -> TxResult:
         """See ``Iris.tx``."""

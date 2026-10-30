@@ -6,9 +6,9 @@ from typing import Any, Dict, Mapping, Optional, Tuple
 from ._errors import IrisError
 
 # Coins counted as the chain's native coin in a trace's `sol` (wrapped ones included).
-_NATIVE = {"SOL", "WSOL", "ETH", "WETH", "BNB", "WBNB", "BTC", "TRX", "WTRX"}
+_NATIVE = {"SOL", "WSOL", "ETH", "WETH", "BNB", "WBNB", "BTC", "TRX", "WTRX", "POL", "WPOL", "MATIC"}
 # Coins counted as dollars in a trace's `usd`.
-_STABLE = {"USDC", "USDT", "USDC.E", "USDBC", "PYUSD", "USD1", "DAI", "USDS", "FDUSD"}
+_STABLE = {"USDC", "USDT", "USDC.E", "USDBC", "PYUSD", "USD1", "DAI", "USDS", "FDUSD", "PUSD"}
 # Party categories a trace goes through: exchanges, mixers and privacy pools, swap services.
 _THROUGH = re.compile(r"exchange|cex|mixer|privacy|swap|instant", re.I)
 
@@ -20,7 +20,7 @@ def plan_trace(
     counterparty: Optional[str] = None,
     direction: Optional[str] = None,
 ) -> Tuple[str, Dict[str, Any]]:
-    """The ``/trace`` request for ``wallet``'s transfer in a transaction read with ``/tx``.
+    """Client-side: the ``/trace`` request for ``wallet``'s transfer in a transaction read with ``/tx``.
 
     Returns ``(wallet, fields)``: the counterparty (the one asked for, else a known exchange,
     mixer or swap service, else the largest), the direction, the time and the amounts moved

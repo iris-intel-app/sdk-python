@@ -6,7 +6,7 @@ import httpx
 import pytest
 import respx
 
-from iriscan import AsyncIris, Iris, IrisError
+from iriscan import AsyncIris, Iris, IrisError, plan_trace
 
 BASE = "https://iriscan.app/api"
 KEY = "iris_live_test_0000"
@@ -148,6 +148,23 @@ def test_status_is_a_get(iris):
 
 @respx.mock
 def test_trace_transfer(iris):
+    route = respx.post(f"{BASE}/trace/transfer").mock(return_value=httpx.Response(200, json={"candidates": []}))
+    iris.trace_transfer(SOL, SIG, chain="solana", direction="out")
+    assert route.call_count == 1
+    assert body(route) == {"wallet": SOL, "signature": SIG, "chain": "solana", "direction": "out"}
+
+
+@respx.mock
+def test_chains_pick_and_polygon(iris):
+    addr = "0x" + "ef" * 20
+    respx.post(f"{BASE}/chains").mock(return_value=httpx.Response(200, json={"address": addr, "chains": [], "pick": "polygon"}))
+    assert iris.chains(addr)["pick"] == "polygon"
+    route = respx.post(f"{BASE}/analyze").mock(return_value=httpx.Response(200, json={}))
+    iris.analyze(addr, chain="polygon")
+    assert body(route)["chain"] == "polygon"
+
+
+def test_plan_trace_prefers_the_exchange():
     exchange = "ExchangeHotWa11et1111111111111111111111111"
     other = "SomeoneE1se11111111111111111111111111111111"
     summary = {
@@ -164,21 +181,12 @@ def test_trace_transfer(iris):
             {"address": other, "chain": "solana", "kind": "wallet", "label": None, "category": None, "entity": None, "role": "receiver", "analyzable": True},
         ],
     }
-    tx = respx.post(f"{BASE}/tx").mock(return_value=httpx.Response(200, json=summary))
-    trace = respx.post(f"{BASE}/trace").mock(return_value=httpx.Response(200, json={"candidates": []}))
-    iris.trace_transfer(SOL, SIG, window=3600)
-    assert body(tx) == {"hash": SIG}
-    assert body(trace) == {
-        "wallet": SOL, "counterparty": exchange, "signature": SIG, "direction": "out", "time": 1767225600,
-        "sol": 10, "usd": 200, "chain": "solana", "window": 3600,
-    }
-
-
-@respx.mock
-def test_trace_transfer_with_nothing_moved(iris):
-    respx.post(f"{BASE}/tx").mock(return_value=httpx.Response(200, json={"chain": "solana", "hash": SIG, "time": 1, "transfers": [], "parties": []}))
+    assert plan_trace(summary, SOL) == (
+        SOL,
+        {"counterparty": exchange, "signature": SIG, "direction": "out", "time": 1767225600, "sol": 10, "usd": 200, "chain": "solana"},
+    )
     with pytest.raises(IrisError) as e:
-        iris.trace_transfer(SOL, SIG)
+        plan_trace(dict(summary, transfers=[]), SOL)
     assert e.value.code == "unresolved"
 
 
@@ -407,22 +415,11 @@ def test_async_has_the_same_methods_and_errors(monkeypatch):
 
 @respx.mock
 def test_async_trace_transfer():
-    summary = {
-        "chain": "ethereum",
-        "hash": "0x" + "a" * 64,
-        "time": 1767225600,
-        "transfers": [{"from": "0x" + "AB" * 20, "to": "0x" + "cd" * 20, "amount": 1.5, "asset": "ETH", "mint": None, "usd": 4500}],
-        "parties": [],
-    }
-    respx.post(f"{BASE}/tx").mock(return_value=httpx.Response(200, json=summary))
-    trace = respx.post(f"{BASE}/trace").mock(return_value=httpx.Response(200, json={"candidates": []}))
+    trace = respx.post(f"{BASE}/trace/transfer").mock(return_value=httpx.Response(200, json={"candidates": []}))
 
     async def run():
         async with AsyncIris(api_key=KEY) as iris:
-            await iris.trace_transfer("0x" + "ab" * 20, "0x" + "a" * 64, chain="ethereum")
+            await iris.trace_transfer("0x" + "ab" * 20, "0x" + "a" * 64, chain="polygon", counterparty="0x" + "cd" * 20)
 
     asyncio.run(run())
-    assert body(trace) == {
-        "wallet": "0x" + "ab" * 20, "counterparty": "0x" + "cd" * 20, "signature": "0x" + "a" * 64,
-        "direction": "out", "time": 1767225600, "sol": 1.5, "usd": 0, "chain": "ethereum",
-    }
+    assert body(trace) == {"wallet": "0x" + "ab" * 20, "signature": "0x" + "a" * 64, "chain": "polygon", "counterparty": "0x" + "cd" * 20}

@@ -9,15 +9,15 @@ from __future__ import annotations
 
 from typing import Any, Dict, List, Literal, Optional, Tuple, TypedDict, Union
 
-Chain = Literal["solana", "ethereum", "base", "arbitrum", "robinhood", "bsc", "dydx", "noble", "bitcoin", "tron"]
+Chain = Literal["solana", "ethereum", "base", "arbitrum", "robinhood", "bsc", "polygon", "dydx", "noble", "bitcoin", "tron"]
 """Every chain the API reads. Each route accepts the subset its docs list."""
 
-EvmChain = Literal["ethereum", "base", "arbitrum", "robinhood", "bsc"]
+EvmChain = Literal["ethereum", "base", "arbitrum", "robinhood", "bsc", "polygon"]
 InsidersChain = Literal["solana", "robinhood", "bsc"]
-FollowChain = Literal["solana", "ethereum", "base", "arbitrum", "robinhood", "bsc", "bitcoin", "tron"]
+FollowChain = Literal["solana", "ethereum", "base", "arbitrum", "robinhood", "bsc", "polygon", "bitcoin", "tron"]
 TraceChain = FollowChain
 KindChain = Literal["solana", "robinhood", "bsc"]
-XchainWalletChain = Literal["solana", "ethereum", "base", "arbitrum", "robinhood", "bsc"]
+XchainWalletChain = Literal["solana", "ethereum", "base", "arbitrum", "robinhood", "bsc", "polygon"]
 
 
 class Credits(TypedDict, total=False):
@@ -1186,8 +1186,13 @@ class FollowEnd(TypedDict):
     time: Optional[int]
 
 
+class VisitorAllowance(TypedDict):
+    traces_left: int
+
+
 class _FollowResultOptional(TypedDict, total=False):
     credits: Credits
+    visitor: VisitorAllowance
 
 
 class FollowResult(_FollowResultOptional):
@@ -1307,6 +1312,7 @@ class _TraceResultOptional(TypedDict, total=False):
     swap: TraceSwap
     chain: str
     clusters: List[TraceCluster]
+    visitor: VisitorAllowance
 
 
 class TraceResult(_TraceResultOptional):
@@ -1446,6 +1452,9 @@ class ChainActivity(TypedDict):
 class ChainsResult(TypedDict):
     address: str
     chains: List[ChainActivity]
+    """Every EVM chain Iris analyzes, in its order."""
+    pick: Optional[str]
+    """The most active chain (most transactions sent, then most held), None when active on none."""
 
 
 Health = Literal["operational", "degraded", "outage", "unknown"]
